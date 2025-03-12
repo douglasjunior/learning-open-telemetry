@@ -12,8 +12,6 @@ services:
       - otel_network
     ports:
       - "1888:1888" # pprof extension
-      - "8888:8888" # Prometheus metrics exposed by the collector
-      - "8889:8889" # Prometheus exporter metrics
       - "13133:13133" # health_check extension
       - "4317:4317" # OTLP gRPC receiver
       - "4318:4318" # OTLP http receiver
@@ -34,8 +32,11 @@ services:
   loki:
     image: grafana/loki:latest
     container_name: loki
-    ports:
-      - "3100:3100"
+    command: [-config.file=/etc/loki/local-config.yaml]
+    volumes: 
+      - ./loki/local-config.yml:/etc/loki/local-config.yaml
+    networks:
+      - otel_network
 
   grafana:
     container_name: grafana
@@ -45,7 +46,7 @@ services:
     networks:
       - otel_network
     ports:
-      - "3000:3000" # Jaeger
+      - "3000:3000" # Web UI
 
   jaeger-all-in-one:
     container_name: jaeger-all-in-one
@@ -55,8 +56,6 @@ services:
       - otel_network
     ports:
       - "16686:16686"
-      - "14268"
-      - "14250" # OTLP gRPC
 
 networks:
   otel_network:

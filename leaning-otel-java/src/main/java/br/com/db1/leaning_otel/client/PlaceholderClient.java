@@ -9,7 +9,7 @@ import java.util.List;
 
 @FeignClient(
         name = "PlaceholderClient",
-        url = "https://jsonplaceholder.typicode.com"
+        url = "${placeholder.base-url}"
 )
 public interface PlaceholderClient {
 

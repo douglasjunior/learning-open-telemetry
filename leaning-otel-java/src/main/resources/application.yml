@@ -18,8 +18,14 @@ otel:
   otlp:
     endpoint: http://localhost:4317
   logs:
-    exporter: otlp,console
+    exporter: otlp
   traces:
-    exporter: otlp,console
+    exporter: otlp
   metrics:
     exporter: otlp
+  instrumentation:
+    micrometer:
+      enabled: true
+
+placeholder:
+  base-url: "https://jsonplaceholder.typicode.com"

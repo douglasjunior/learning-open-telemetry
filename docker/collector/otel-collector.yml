@@ -11,8 +11,8 @@ processors:
   batch:
 
 exporters:
-  loki:
-    endpoint: "http://loki:3100/loki/api/v1/push"
+  otlphttp:
+    endpoint: http://loki:3100/otlp
   prometheus:
     endpoint: "0.0.0.0:8889"
     const_labels:
@@ -44,4 +44,4 @@ service:
       exporters: [otlp]
     logs:
       receivers: [otlp]
-      exporters: [loki]
+      exporters: [otlphttp]
