@@ -14,7 +14,7 @@ namespace LearningOtelDotnet.Migrations
                 name: "Todos",
                 columns: table => new
                 {
-                    TodoId = table.Column<int>(type: "INTEGER", nullable: false)
+                    TodoId = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Description = table.Column<string>(type: "TEXT", nullable: false)
                 },
