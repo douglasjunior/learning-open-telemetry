@@ -1,3 +1,9 @@
+## Requirements
+
+- .NET Core SDK 8.0
+
+## Try
+
 1. Run `cd LearningOtelDotnet`
 1. Run `dotnet restore`
 1. Run `dotnet ef database update`
