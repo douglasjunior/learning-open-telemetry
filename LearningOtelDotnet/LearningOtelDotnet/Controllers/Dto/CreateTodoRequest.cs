@@ -7,6 +7,6 @@ public class CreateTodoRequest
 
     [Required]
     [StringLength(255)]
-    public string Description { get; set; }
+    public required string Description { get; set; }
 
 }
