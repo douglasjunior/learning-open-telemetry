@@ -7,13 +7,15 @@ public class AppDbContext : DbContext
 {
     public DbSet<TodoModel> Todos { get; set; }
 
+    private ILogger<AppDbContext> _logger;
     public string DbPath { get; }
 
-    public AppDbContext()
+    public AppDbContext(ILogger<AppDbContext> logger)
     {
+        _logger = logger;
         var path = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
         DbPath = Path.Join(path, "todolist.db");
-        Console.WriteLine($"DbPath: {DbPath}");
+        _logger.LogInformation("DbPath: {0}", DbPath);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

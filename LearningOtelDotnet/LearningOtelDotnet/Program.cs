@@ -10,6 +10,10 @@ builder.Services.AddDbContext<AppDbContext>();
 
 builder.Services.AddServices();
 
+// Add OpenTelemetry
+builder.Services.AddOpenTelemetryInstrumentation(builder.Logging, builder.Configuration);
+
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

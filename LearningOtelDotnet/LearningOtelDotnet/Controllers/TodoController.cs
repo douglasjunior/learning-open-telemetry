@@ -36,11 +36,7 @@ public class TodoController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<TodoModel>> PostTodoModel(CreateTodoRequest todoRequest)
     {
-        var todoModel = new TodoModel
-        {
-            Description = todoRequest.Description,
-        };
-        var todo = await _service.PostTodoModel(todoModel);
+        var todo = await _service.PostTodoModel(todoRequest);
         return CreatedAtAction(nameof(GetTodoModel), new { id = todo.TodoId }, todo);
     }
 
@@ -51,5 +47,3 @@ public class TodoController : ControllerBase
         return NoContent();
     }
 }
-
-
