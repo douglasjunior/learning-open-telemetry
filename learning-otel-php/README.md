@@ -3,6 +3,8 @@
 - PHP 8.2 or higher
 - Composer
 - NodeJS and npm
+- OpenTelemetry extension https://pecl.php.net/package/opentelemetry
+- gRPC extension https://pecl.php.net/package/gRPC
 
 ## Try
 
