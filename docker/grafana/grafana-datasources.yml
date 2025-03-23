@@ -35,20 +35,17 @@ datasources:
     editable: false
     jsonData:
       tracesToLogsV2:
-        # Field with an internal link pointing to a logs data source in Grafana.
-        # datasourceUid value must match the uid value of the logs data source.
         datasourceUid: 'loki'
-        spanStartTimeShift: '1h'
-        spanEndTimeShift: '-1h'
-        tags: ['job', 'instance', 'pod', 'namespace']
+        spanStartTimeShift: '-5m'
+        spanEndTimeShift: '5m'
         filterByTraceID: false
         filterBySpanID: false
         customQuery: true
-        query: 'method="$${__span.tags.method}"'
+        query: '{service_instance_id="$${__span.tags["service.instance.id"]}"} | logfmt | trace_id = `$${__trace.traceId}`'
       tracesToMetrics:
         datasourceUid: 'prometheus'
-        spanStartTimeShift: '1h'
-        spanEndTimeShift: '-1h'
+        spanStartTimeShift: '-1h'
+        spanEndTimeShift: '1h'
         tags: [{ key: 'service.name', value: 'service' }, { key: 'job' }]
         queries:
           - name: 'Sample query'
@@ -57,8 +54,8 @@ datasources:
         enabled: true
       traceQuery:
         timeShiftEnabled: true
-        spanStartTimeShift: '1h'
-        spanEndTimeShift: '-1h'
+        spanStartTimeShift: '-1h'
+        spanEndTimeShift: '1h'
       spanBar:
         type: 'None'
     # secureJsonData:

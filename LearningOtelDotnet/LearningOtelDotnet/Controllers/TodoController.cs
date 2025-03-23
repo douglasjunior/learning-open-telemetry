@@ -17,7 +17,7 @@ public class TodoController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<TodoModel>>> GetTodos()
+    public async Task<ActionResult<IEnumerable<object>>> GetTodos()
     {
         return Ok(await _service.GetTodos());
     }
@@ -45,5 +45,12 @@ public class TodoController : ControllerBase
     {
         await _service.DeleteTodoModel(id);
         return NoContent();
+    }
+
+    [HttpGet("Error")]
+    public async Task<IActionResult> Error()
+    {
+        await _service.Error();
+        return Ok();
     }
 }

@@ -6,20 +6,15 @@ import br.com.db1.leaning_otel.service.TodoService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
 @RestController()
 @RequestMapping("todos")
-@Valid
+@Validated
 public class TodoController {
 
     private final TodoService todoService;
@@ -47,9 +42,15 @@ public class TodoController {
     }
 
     @PostMapping
-    public ResponseEntity<TodoModel> create(@RequestBody CreateTodoRequest todoRequest) {
+    public ResponseEntity<TodoModel> create(@Valid @RequestBody CreateTodoRequest todoRequest) {
         var todo = todoService.create(todoRequest.getDescription());
         return ResponseEntity.created(null).body(todo);
+    }
+
+    @GetMapping("/error")
+    public ResponseEntity<String[]> error() {
+        todoService.error();
+        return ResponseEntity.ok(null);
     }
 
 }

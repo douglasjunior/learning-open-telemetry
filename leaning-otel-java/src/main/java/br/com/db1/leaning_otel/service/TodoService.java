@@ -50,4 +50,11 @@ public class TodoService {
 
         return response;
     }
+
+    @SuppressWarnings("ConstantConditions")
+    public void error() {
+        log.info("Throwing exception");
+        String nullString = "";
+        var ignored = nullString.split("");
+    }
 }
