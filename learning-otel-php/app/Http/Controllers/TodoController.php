@@ -50,4 +50,13 @@ class TodoController extends Controller
         $this->todoService->deleteTodo($id);
         return response()->json(null, 204);
     }
+
+    /**
+     * Error
+     */
+    public function causeError()
+    {
+        $this->todoService->error();
+        return response()->json(null, status: 204);
+    }
 }

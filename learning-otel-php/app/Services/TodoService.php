@@ -31,4 +31,11 @@ class TodoService
         $todo->delete();
     }
 
+    public function error()
+    {
+        Log::info('Cause error');
+        $text = null;
+        $text->test();
+    }
+
 }

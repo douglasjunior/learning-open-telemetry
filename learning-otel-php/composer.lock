@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b47a29f9c4579c3968f8f8e0906f98d0",
+    "content-hash": "7da6e201b9e50b10bcb60b5e5439438f",
     "packages": [
         {
             "name": "brick/math",
@@ -3737,6 +3737,71 @@
             ],
             "support": {
                 "source": "https://github.com/opentelemetry-php/contrib-auto-psr18/tree/1.1.0"
+            },
+            "time": "2025-02-25T01:30:01+00:00"
+        },
+        {
+            "name": "open-telemetry/opentelemetry-auto-psr3",
+            "version": "0.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/opentelemetry-php/contrib-auto-psr3.git",
+                "reference": "ca4b6d6e127ac49c35c3d9dab18d4cc2c639d6f9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/opentelemetry-php/contrib-auto-psr3/zipball/ca4b6d6e127ac49c35c3d9dab18d4cc2c639d6f9",
+                "reference": "ca4b6d6e127ac49c35c3d9dab18d4cc2c639d6f9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-opentelemetry": "*",
+                "open-telemetry/api": "^1.0",
+                "open-telemetry/sem-conv": "^1.30",
+                "php": "^8.1",
+                "psr/log": "^1 || ^2 || ^3"
+            },
+            "require-dev": {
+                "apix/log": "*",
+                "cakephp/console": "*",
+                "cakephp/log": "*",
+                "friendsofphp/php-cs-fixer": "^3",
+                "monolog/monolog": "*",
+                "open-telemetry/sdk": "^1.0",
+                "phan/phan": "^5.0",
+                "phpstan/phpstan": "^1.1",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^9.5",
+                "psalm/plugin-phpunit": "^0.19.2",
+                "symfony/console": "*",
+                "vimeo/psalm": "6.4.0",
+                "yiisoft/log": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "_register.php"
+                ],
+                "psr-4": {
+                    "OpenTelemetry\\Contrib\\Instrumentation\\Psr3\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "OpenTelemetry auto-instrumentation for PSR-3 (Logger Interface).",
+            "homepage": "https://opentelemetry.io/docs/php",
+            "keywords": [
+                "PSR3",
+                "instrumentation",
+                "open-telemetry",
+                "opentelemetry",
+                "otel",
+                "tracing"
+            ],
+            "support": {
+                "source": "https://github.com/opentelemetry-php/contrib-auto-psr3/tree/0.0.9"
             },
             "time": "2025-02-25T01:30:01+00:00"
         },
