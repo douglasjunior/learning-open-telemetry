@@ -1,6 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { registerInstrumentations } from '@opentelemetry/instrumentation';
+import { TypeormInstrumentation } from 'opentelemetry-instrumentation-typeorm';
+import { Logger } from 'nestjs-pino';
+
+registerInstrumentations({
+  instrumentations: [
+    new TypeormInstrumentation({
+      enableInternalInstrumentation: true,
+      collectParameters: true,
+    })
+  ],
+});
 
 import { AppModule } from './app.module';
 import { AppConfigService } from './app-config/app-config.service';
@@ -12,7 +24,8 @@ const config = new DocumentBuilder()
   .build();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { bufferLogs: true });
+  app.useLogger(app.get(Logger));
   app.useGlobalFilters(new EntityNotFoundExceptionFilter());
   app.useGlobalPipes(new ValidationPipe());
   const appConfigService = app.get(AppConfigService);

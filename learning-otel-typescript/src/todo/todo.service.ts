@@ -1,9 +1,10 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Todo } from './data/todo.model';
 import { CreateTodoDto } from './dto/create-todo.dto';
+import { PlaceholderGateway } from './gateway/placeholder.gateway';
 
 @Injectable()
 export class TodoService {
@@ -12,11 +13,17 @@ export class TodoService {
   constructor(
     @InjectRepository(Todo)
     private readonly todoRepository: Repository<Todo>,
+    @Inject(PlaceholderGateway)
+    private readonly placeholderGateway: PlaceholderGateway
   ) { }
 
-  getTodos() {
+  async getTodos(): Promise<object[]> {
     this.logger.log('Fetching all todos');
-    return this.todoRepository.find();
+    const todoLists: object[][] = await Promise.all([
+      this.todoRepository.find(),
+      this.placeholderGateway.requestTodos()
+    ]);
+    return todoLists.flatMap(todoList => todoList);
   }
 
   getTodoById(id: number) {
@@ -34,4 +41,10 @@ export class TodoService {
     return this.todoRepository.delete({ id });
   }
 
+  error() {
+    this.logger.log('Create an error');
+    const text: any = null;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    text.split();
+  }
 }

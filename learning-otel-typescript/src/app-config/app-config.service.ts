@@ -14,4 +14,8 @@ export class AppConfigService {
     return this.configService.get<number>('PORT') ?? 3000;
   }
 
+  get placeholderEndpoint(): string {
+    return this.configService.getOrThrow<string>('PLACEHOLDER_ENDPOINT');
+  }
+
 }

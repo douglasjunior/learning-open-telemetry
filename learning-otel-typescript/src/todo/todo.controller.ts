@@ -7,6 +7,12 @@ export class TodoController {
 
   constructor(private readonly todoService: TodoService) { }
 
+  @Get('/error')
+  @HttpCode(200)
+  error() {
+    return this.todoService.error();
+  }
+
   @Get('/')
   get() {
     return this.todoService.getTodos();
