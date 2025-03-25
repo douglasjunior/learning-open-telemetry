@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "start": "nest start",
+    "start": "bash scripts/start.sh",
     "dev": "bash scripts/dev.sh",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
