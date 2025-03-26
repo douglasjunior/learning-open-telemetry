@@ -54,7 +54,7 @@ public class TodoService {
     @SuppressWarnings("ConstantConditions")
     public void error() {
         log.info("Throwing exception");
-        String nullString = "";
+        String nullString = null;
         var ignored = nullString.split("");
     }
 }
