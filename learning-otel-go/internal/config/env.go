@@ -1,9 +1,20 @@
 package config
 
 import (
+	"log"
 	"os"
 	"strconv"
+
+	"github.com/joho/godotenv"
 )
+
+// LoadEnv carrega as variáveis de ambiente do arquivo .env, se existir
+func LoadEnv() {
+	// Tenta carregar .env, mas não falha se o arquivo não existir
+	if err := godotenv.Load(); err != nil {
+		log.Println("Arquivo .env não encontrado, usando variáveis de ambiente do sistema")
+	}
+}
 
 type Config struct {
 	Server   ServerConfig
@@ -26,6 +37,9 @@ type DatabaseConfig struct {
 }
 
 func LoadConfig() *Config {
+	// Tenta carregar as variáveis de ambiente do arquivo .env
+	LoadEnv()
+
 	port := getEnv("PORT", "8080")
 	dbPort, _ := strconv.Atoi(getEnv("DB_PORT", "5432"))
 

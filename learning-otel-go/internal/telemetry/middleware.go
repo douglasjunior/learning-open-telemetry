@@ -2,6 +2,7 @@ package telemetry
 
 import (
 	"net/http"
+	"time"
 
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
@@ -13,8 +14,12 @@ import (
 // TracingMiddleware instrumenta requisições HTTP com OpenTelemetry
 func TracingMiddleware(next http.Handler) http.Handler {
 	tracer := otel.Tracer("http-middleware")
+	logger := NewLogger()
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Marca o início para cálculo de duração
+		startTime := time.Now()
+
 		// Extrai contexto de trace da requisição
 		propagator := otel.GetTextMapPropagator()
 		ctx := propagator.Extract(r.Context(), propagation.HeaderCarrier(r.Header))
@@ -35,21 +40,50 @@ func TracingMiddleware(next http.Handler) http.Handler {
 		)
 		defer span.End()
 
+		// Log da requisição recebida
+		logger.Info(ctx, "Requisição recebida",
+			"method", method,
+			"path", path,
+			"remote_addr", r.RemoteAddr,
+			"user_agent", r.UserAgent(),
+		)
+
 		// Wrapper do ResponseWriter para capturar o código de status
 		wrapper := &responseWriter{w: w, status: http.StatusOK}
 
 		// Passa o contexto de trace para o próximo handler
 		next.ServeHTTP(wrapper, r.WithContext(ctx))
 
+		// Calcula a duração
+		duration := float64(time.Since(startTime).Milliseconds())
+
 		// Adiciona informações de resposta ao span
 		span.SetAttributes(
 			attribute.Int("http.status_code", wrapper.status),
+			attribute.Float64("http.duration_ms", duration),
 		)
 
-		// Se o status é de erro, marca o span como erro
+		// Registra métricas (comentado até os pacotes de métricas serem adicionados)
+		/*
+			RecordHTTPRequest(ctx, method, path, wrapper.status, duration)
+		*/
+
+		// Log da resposta
 		if wrapper.status >= 400 {
+			logger.Error(ctx, "Erro na resposta HTTP",
+				"method", method,
+				"path", path,
+				"status", wrapper.status,
+				"duration_ms", duration,
+			)
 			span.SetStatus(codes.Error, http.StatusText(wrapper.status))
 		} else {
+			logger.Info(ctx, "Resposta enviada com sucesso",
+				"method", method,
+				"path", path,
+				"status", wrapper.status,
+				"duration_ms", duration,
+			)
 			span.SetStatus(codes.Ok, "")
 		}
 	})
