@@ -26,50 +26,7 @@
     }
   ],
   "__elements": {},
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "11.6.0"
-    },
-    {
-      "type": "datasource",
-      "id": "jaeger",
-      "name": "Jaeger",
-      "version": "11.6.0-pre"
-    },
-    {
-      "type": "panel",
-      "id": "logs",
-      "name": "Logs",
-      "version": ""
-    },
-    {
-      "type": "datasource",
-      "id": "loki",
-      "name": "Loki",
-      "version": "1.0.0"
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "table",
-      "name": "Table",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "timeseries",
-      "name": "Time series",
-      "version": ""
-    }
-  ],
+  "__requires": [],
   "annotations": {
     "list": [
       {
@@ -475,7 +432,7 @@
   ],
   "refresh": "30s",
   "schemaVersion": 41,
-  "tags": [],
+  "tags": ["application", "trace", "logs"],
   "templating": {
     "list": [
       {
@@ -543,7 +500,7 @@
   "timepicker": {},
   "timezone": "browser",
   "title": "Application monitoring",
-  "uid": null,
+  "uid": "application-monitoring",
   "version": 52,
   "weekStart": ""
 }

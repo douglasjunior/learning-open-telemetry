@@ -11,3 +11,5 @@
 1. Open Jaeger at http://localhost:16686
 1. Open Prometheus at http://localhost:9090
 1. Open Grafana at http://localhost:3000 (login with admin/admin)
+    - Application dashboard: http://localhost:3000/d/application-monitoring/application-monitoring
+    - System dashboard: http://localhost:3000/d/system-monitoring/system-monitoring
