@@ -1,12 +1,4 @@
-# Content of the repository
-
-- [docker](./docker/) directory contains docker-compose and service configuration files.
-- [leaning-otel-java](./leaning-otel-java/) directory contains a Java application instrumented with OpenTelemetry Spring Starter.
-- [LearningOtelDotnet](./LearningOtelDotnet/) directory contains a .NET application instrumented with OpenTelemetry .NET SDK.
-- [learning-otel-php](./learning-otel-php/) directory contains a PHP + Laravel application instrumented with OpenTelemetry PHP SDK.
-- [learning-otel-typescript](./learning-otel-typescript/) directory contains a Node + NestJS + TypeScript application instrumented with OpenTelemetry JavaScript SDK.
-
-## Description
+# Learning OpenTelemetry
 
 This repository contains a collection of applications instrumented with OpenTelemetry. 
 The goal is to provide examples of how to use OpenTelemetry in different programming languages and frameworks. 
@@ -19,6 +11,14 @@ The OpenTelemetry Collector is configured to send the telemetry data to:
 - Loki for logs
 
 Grafana is used to visualize the telemetry data.
+
+## Content
+
+- [docker](./docker/) directory contains docker-compose and service configuration files.
+- [leaning-otel-java](./leaning-otel-java/) directory contains a Java application instrumented with OpenTelemetry Spring Starter.
+- [LearningOtelDotnet](./LearningOtelDotnet/) directory contains a .NET application instrumented with OpenTelemetry .NET SDK.
+- [learning-otel-php](./learning-otel-php/) directory contains a PHP + Laravel application instrumented with OpenTelemetry PHP SDK.
+- [learning-otel-typescript](./learning-otel-typescript/) directory contains a Node + NestJS + TypeScript application instrumented with OpenTelemetry JavaScript SDK.
 
 ## Tools
 
