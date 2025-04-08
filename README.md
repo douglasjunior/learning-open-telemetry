@@ -14,9 +14,9 @@ The goal is to provide examples of how to use OpenTelemetry in different program
 The applications are instrumented with OpenTelemetry SDKs and are configured to send telemetry data to a OpenTelemetry Collector.
 
 The OpenTelemetry Collector is configured to send the telemetry data to:
-    - Jaeger and Tempo backend for tracing
-    - Prometheus for metrics
-    - Loki for logs
+- Jaeger and Tempo backend for tracing
+- Prometheus for metrics
+- Loki for logs
 
 Grafana is used to visualize the telemetry data.
 
