@@ -542,8 +542,8 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Dashboard Application",
-  "uid": "feg46o6m7ij28e",
+  "title": "Application monitoring",
+  "uid": null,
   "version": 52,
   "weekStart": ""
 }

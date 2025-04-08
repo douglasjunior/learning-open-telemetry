@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+- name: 'Dashboards Observabilidade'
+  orgId: 1
+  folder: 'Observabilidade'
+  type: file
+  updateIntervalSeconds: 30
+  options:
+    path: /var/lib/grafana/dashboards/json
+    foldersFromFilesStructure: true

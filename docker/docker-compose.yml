@@ -67,7 +67,9 @@ services:
     container_name: grafana
     image: grafana/grafana:latest
     volumes:
-      - ./grafana/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+      - ./grafana/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+      - ./grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+      - ./grafana/dashboards:/var/lib/grafana/dashboards/json
     networks:
       - otel_network
     ports:
