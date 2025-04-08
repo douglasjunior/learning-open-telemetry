@@ -43,18 +43,17 @@ datasources:
         query: '{service_instance_id="$${__span.tags["service.instance.id"]}"} | logfmt | trace_id = `$${__trace.traceId}`'
       tracesToMetrics:
         datasourceUid: 'prometheus'
-        spanStartTimeShift: '-1h'
-        spanEndTimeShift: '1h'
-        tags: [{ key: 'service.name', value: 'service' }, { key: 'job' }]
+        spanStartTimeShift: '-15m'
+        spanEndTimeShift: '15m'
         queries:
-          - name: 'Sample query'
-            query: 'sum(rate(traces_spanmetrics_latency_bucket{$$__tags}[5m]))'
+          - name: 'Request rate'
+            query: 'sum(increase(http_server_request_duration_seconds_count{exported_instance="$${__span.tags["service.instance.id"]}"}[1m]))'
       nodeGraph:
         enabled: true
       traceQuery:
         timeShiftEnabled: true
-        spanStartTimeShift: '-1h'
-        spanEndTimeShift: '1h'
+        spanStartTimeShift: '-15m'
+        spanEndTimeShift: '15m'
       spanBar:
         type: 'None'
   - name: Tempo
@@ -84,9 +83,16 @@ datasources:
         query: '{service_instance_id="$${__span.tags["service.instance.id"]}"} | logfmt | trace_id = `$${__trace.traceId}`'
       tracesToMetrics:
         datasourceUid: 'prometheus'
-        spanStartTimeShift: '-1h'
-        spanEndTimeShift: '1h'
-        tags: [{ key: 'service.name', value: 'service' }, { key: 'job' }]
+        spanStartTimeShift: '-15m'
+        spanEndTimeShift: '15m'
         queries:
-          - name: 'Sample query'
-            query: 'sum(rate(traces_spanmetrics_latency_bucket{$$__tags}[5m]))'
+          - name: 'Request rate'
+            query: 'sum(increase(http_server_request_duration_seconds_count{exported_instance="$${__span.tags["service.instance.id"]}"}[1m]))'
+      nodeGraph:
+        enabled: true
+      traceQuery:
+        timeShiftEnabled: true
+        spanStartTimeShift: '-15m'
+        spanEndTimeShift: '15m'
+      spanBar:
+        type: 'None'
