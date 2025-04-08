@@ -29,7 +29,6 @@ datasources:
     url: http://jaeger-all-in-one:16686
     access: proxy
     basicAuth: false
-    # basicAuthUser: my_user
     readOnly: false
     isDefault: false
     editable: false
@@ -58,5 +57,36 @@ datasources:
         spanEndTimeShift: '1h'
       spanBar:
         type: 'None'
-    # secureJsonData:
-    #   basicAuthPassword: my_password
+  - name: Tempo
+    type: tempo
+    access: proxy
+    orgId: 1
+    url: http://tempo:3200
+    basicAuth: false
+    isDefault: false
+    version: 1
+    editable: false
+    apiVersion: 1
+    uid: tempo
+    jsonData:
+      httpMethod: GET
+      serviceMap:
+        datasourceUid: prometheus
+      streamingEnabled:
+        search: true
+      tracesToLogsV2:
+        datasourceUid: 'loki'
+        spanStartTimeShift: '-5m'
+        spanEndTimeShift: '5m'
+        filterByTraceID: false
+        filterBySpanID: false
+        customQuery: true
+        query: '{service_instance_id="$${__span.tags["service.instance.id"]}"} | logfmt | trace_id = `$${__trace.traceId}`'
+      tracesToMetrics:
+        datasourceUid: 'prometheus'
+        spanStartTimeShift: '-1h'
+        spanEndTimeShift: '1h'
+        tags: [{ key: 'service.name', value: 'service' }, { key: 'job' }]
+        queries:
+          - name: 'Sample query'
+            query: 'sum(rate(traces_spanmetrics_latency_bucket{$$__tags}[5m]))'

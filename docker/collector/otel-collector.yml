@@ -11,14 +11,16 @@ processors:
   batch:
 
 exporters:
-  otlphttp:
+  otlphttp/loki:
     endpoint: http://loki:3100/otlp
   prometheus:
-    endpoint: "0.0.0.0:8889"
-    const_labels:
-      label1: value1
-  otlp:
+    endpoint: 0.0.0.0:8889
+  otlp/jaeger:
     endpoint: jaeger-all-in-one:4317
+    tls:
+      insecure: true
+  otlp/tempo:
+    endpoint: tempo:4317
     tls:
       insecure: true
 
@@ -41,7 +43,7 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [otlp]
+      exporters: [otlp/jaeger, otlp/tempo]
     logs:
       receivers: [otlp]
-      exporters: [otlphttp]
+      exporters: [otlphttp/loki]

@@ -75,6 +75,16 @@ services:
     ports:
       - "3000:3000" # Web UI
 
+  tempo:
+    container_name: tempo
+    image: grafana/tempo:latest
+    command: [ "-config.file=/etc/tempo.yml" ]
+    volumes:
+      - ./tempo/tempo.yml:/etc/tempo.yml
+    restart: unless-stopped
+    networks:
+      - otel_network
+
   jaeger-all-in-one:
     container_name: jaeger-all-in-one
     image: jaegertracing/all-in-one:latest
